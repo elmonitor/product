@@ -14,16 +14,16 @@ class product_template(models.Model):
     _inherit = 'product.template'
 
     list_price_type = fields.Selection(
-        selection_add=[('other_currency', 'Other Currency')],
+        selection_add=[('other_currency', 'Otra Moneda')],
         )
     other_currency_id = fields.Many2one(
         'res.currency',
-        'Other Currency',
-        help="Currency used for the Currency List Price.",
+        'Otra Moneda',
+        help="Otra Moneda.",
         oldname='sale_price_currency_id',
         )
     other_currency_list_price = fields.Float(
-        'Sale Price on Other Currency',
+        'Precio en otra moneda',
         digits=dp.get_precision('Product Price'),
         help="Sale Price on Other Currency",
         )
@@ -43,7 +43,7 @@ class product_template(models.Model):
         if self.list_price_type == 'other_currency':
             if not self.other_currency_id:
                 raise Warning(_(
-                    'You must configure "Other Currency" for product %s' % (
+                    'Debe seleccionar "Otra Moneda" para el producto %s' % (
                         self.name)))
             self.other_currency_list_price = self._get_price_type(
                 'computed_list_price').currency_id.compute(
